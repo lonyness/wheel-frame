@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.3.1.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <!-- 修改jar为pom -->
+    <packaging>pom</packaging>
+    <groupId>com.frame</groupId>
+    <artifactId>wheel</artifactId>
+    <version>1.0.0</version>
+    <name>wheel</name>
+    <description>Demo project for Spring Boot</description>
+
+    <properties>
+        <!--编译字符集-->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!--输出字符集-->
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!--jdk版本-->
+        <java.version>1.8</java.version>
+        <!--wheel版本-->
+        <wheel.version>1.0.0</wheel.version>
+        <!--druid版本-->
+        <druid.version>1.1.10</druid.version>
+        <!--dynamic-datasource-spring-boot-starter-->
+        <dynamic-datasource-spring-boot-starter>3.1.1</dynamic-datasource-spring-boot-starter>
+        <!--mysql-plus-->
+        <mybatis-plus>3.0.7.1</mybatis-plus>
+        <relativePath/> <!-- lookup parent from repository -->
+    </properties>
+
+    <modules>
+        <module>wheel-system</module>
+        <module>wheel-core</module>
+        <module>wheel-db</module>
+    </modules>
+
+    <dependencies>
+        <!--测试依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!--mockito依赖 虚拟对象-->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.9.5</version>
+            <scope>test</scope>
+        </dependency>
+        <!--junit依赖-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- 注意: 因为我们不需要demo-parent是一个可运行的项目，所以修改原来的打包方式为maven打包方式 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

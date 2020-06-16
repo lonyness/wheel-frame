@@ -30,7 +30,7 @@
         <!--dynamic-datasource-spring-boot-starter-->
         <dynamic-datasource-spring-boot-starter>3.1.1</dynamic-datasource-spring-boot-starter>
         <!--mysql-plus-->
-        <mybatis-plus>3.0.7.1</mybatis-plus>
+        <mybatis-plus>3.3.2</mybatis-plus>
         <relativePath/> <!-- lookup parent from repository -->
     </properties>
 

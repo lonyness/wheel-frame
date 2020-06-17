@@ -8,5 +8,5 @@ import org.springframework.stereotype.Component;
 @Mapper
 @Component(value = "sysUserMapper")
 public interface SysUserMapper extends BaseMapper<SysUser> {
-
+    SysUser getOneByName(String account);
 }

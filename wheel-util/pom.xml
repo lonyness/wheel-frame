@@ -6,35 +6,19 @@
         <groupId>com.frame</groupId>
         <artifactId>wheel</artifactId>
         <version>1.0.0</version>
-        <relativePath>../pom.xml</relativePath><!-- lookup parent from repository -->
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.frame.wheel</groupId>
-    <artifactId>wheel-system</artifactId>
+    <artifactId>wheel-util</artifactId>
     <version>${wheel.version}</version>
-    <name>wheel-system</name>
+    <name>wheel-util</name>
     <description>Demo project for Spring Boot</description>
-    <packaging>jar</packaging>
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
 
     <dependencies>
-        <!--web方法依赖-->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <!--依赖模块：db-->
-        <dependency>
-            <groupId>com.frame.wheel</groupId>
-            <artifactId>wheel-db</artifactId>
-            <version>${wheel.version}</version>
-        </dependency>
-        <!--依赖模块：util-->
-        <dependency>
-            <groupId>com.frame.wheel</groupId>
-            <artifactId>wheel-util</artifactId>
-            <version>${wheel.version}</version>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool.version}</version>
         </dependency>
     </dependencies>
 

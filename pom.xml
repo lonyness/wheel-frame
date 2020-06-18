@@ -32,7 +32,7 @@
         <!--mysql-plus-->
         <mybatis-plus>3.3.2</mybatis-plus>
         <!--hutool-->
-        <hutool.version>5.3.7</hutool.version>
+        <guava.version>28.0-jre</guava.version>
         <relativePath/> <!-- lookup parent from repository -->
     </properties>
 

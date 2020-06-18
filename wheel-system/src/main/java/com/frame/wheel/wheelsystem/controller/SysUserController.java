@@ -13,8 +13,8 @@ public class SysUserController {
     private SysUserService sysUserService;
 
     @RequestMapping("/getUserByName")
-    public SysUser getUserByName(String name) throws Exception {
-        return sysUserService.getOneByName(name);
+    public SysUser getUserByName(String account) throws Exception {
+        return sysUserService.getOneByName(account);
     }
 
 }

@@ -33,6 +33,8 @@
         <mybatis-plus>3.3.2</mybatis-plus>
         <!--hutool-->
         <guava.version>28.0-jre</guava.version>
+        <!--fastjson-->
+        <fastjson>1.2.62</fastjson>
         <relativePath/> <!-- lookup parent from repository -->
     </properties>
 

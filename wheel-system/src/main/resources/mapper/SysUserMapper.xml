@@ -5,8 +5,8 @@
         <id column="id" property="id" />
         <result column="account" property="account" />
     </resultMap>
-    <select id="getOneByName" resultType="com.frame.wheel.wheelsystem.entity.SysUser" resultMap="result" >
-        select * from sys_user where account = #{account}
+    <select id="selectPageVo" resultType="com.frame.wheel.wheelsystem.entity.SysUser">
+         SELECT *  FROM sys_user
     </select>
 
 

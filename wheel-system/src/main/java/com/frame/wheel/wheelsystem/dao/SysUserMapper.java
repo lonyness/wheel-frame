@@ -1,12 +1,22 @@
 package com.frame.wheel.wheelsystem.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.frame.wheel.wheelsystem.entity.SysUser;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Mapper
 @Component(value = "sysUserMapper")
 public interface SysUserMapper extends BaseMapper<SysUser> {
-    SysUser getOneByName(String account);
+
+    /**
+     * 获取用户列表
+     * @return
+     */
+    public IPage<SysUser> selectPageVo(Page page);
 }

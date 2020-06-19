@@ -1,5 +1,6 @@
 package com.frame.wheel.wheelsystem.service.impl;
 
+import cn.hutool.core.lang.Validator;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -24,11 +25,11 @@ public class SysUserServiceImpl  extends ServiceImpl<SysUserMapper, SysUser> imp
         // 要点!! 分页返回的对象与传入的对象是同一个
         QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>();
         if (sysUser != null) {
-//            if (Validator.isNotEmpty(sysUser.getUsername())) {
-//                queryWrapper.like("username", sysUser.getUsername());
-//            }
+            if (Validator.isNotEmpty(sysUser.getAccount())) {
+                queryWrapper.like("account", sysUser.getAccount());
+            }
         }
-        return sysUserMapper.selectPageVo(page);
+        return sysUserMapper.selectPageVo(page,queryWrapper);
     }
 
 }

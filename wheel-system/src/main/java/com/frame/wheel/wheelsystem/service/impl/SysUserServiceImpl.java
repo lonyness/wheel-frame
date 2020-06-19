@@ -1,5 +1,6 @@
 package com.frame.wheel.wheelsystem.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -16,11 +17,17 @@ public class SysUserServiceImpl  extends ServiceImpl<SysUserMapper, SysUser> imp
     private SysUserMapper sysUserMapper;
 
     @Override
-    public IPage<SysUser> selectUserPage(Page<SysUser> page) {
+    public IPage<SysUser> selectUserPage(Page<SysUser> page,SysUser sysUser) {
         // 不进行 count sql 优化，解决 MP 无法自动优化 SQL 问题，这时候你需要自己查询 count 部分
         // page.setOptimizeCountSql(false);
         // 当 total 为非 0 时(默认为 0),分页插件不会进行 count 查询
         // 要点!! 分页返回的对象与传入的对象是同一个
+        QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>();
+        if (sysUser != null) {
+//            if (Validator.isNotEmpty(sysUser.getUsername())) {
+//                queryWrapper.like("username", sysUser.getUsername());
+//            }
+        }
         return sysUserMapper.selectPageVo(page);
     }
 

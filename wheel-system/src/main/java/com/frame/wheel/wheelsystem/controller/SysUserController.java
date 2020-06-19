@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * <p>
@@ -53,14 +54,12 @@ public class SysUserController {
 //        Page<SysUser> page1 = JSON.parseObject(json, TypeBuilder.newInstance(Page.class).addTypeParam(SysUser.class).build());
 //        print(page1.getRecords());
 //        System.out.println("json 正反序列化 end");
-        long date1 = System.currentTimeMillis();
-        IPage<SysUser> userPage = sysUserService.selectUserPage(page);
-        System.out.println("总条数 ------> " + userPage.getTotal());
-        System.out.println("当前页数 ------> " + userPage.getCurrent());
-        System.out.println("当前每页显示数 ------> " + userPage.getSize());
-        print(userPage.getRecords());
-        System.out.println("----- 自定义 XML 分页 ------");
-        long date2 = System.currentTimeMillis();
+        IPage<SysUser> userPage = sysUserService.selectUserPage(page,new SysUser());
+//        System.out.println("总条数 ------> " + userPage.getTotal());
+//        System.out.println("当前页数 ------> " + userPage.getCurrent());
+//        System.out.println("当前每页显示数 ------> " + userPage.getSize());
+//        print(userPage.getRecords());
+//        System.out.println("----- 自定义 XML 分页 ------");
         return userPage;
     }
     private <T> void print(List<T> list) {

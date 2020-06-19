@@ -15,10 +15,11 @@
     <description>Demo project for Spring Boot</description>
 
     <dependencies>
+        <!-- huTool 工具 -->
         <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>${guava.version}</version>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool.version}</version>
         </dependency>
         <!--fastjson-->
         <dependency>

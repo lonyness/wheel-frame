@@ -6,5 +6,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.frame.wheel.wheelsystem.entity.SysUser;
 
 public interface SysUserService  extends IService<SysUser> {
-    public IPage<SysUser> selectUserPage(Page<SysUser> page);
+    public IPage<SysUser> selectUserPage(Page<SysUser> page,SysUser sysUser);
 }

@@ -29,7 +29,8 @@ public class SysUserServiceImpl  extends ServiceImpl<SysUserMapper, SysUser> imp
                 queryWrapper.like("account", sysUser.getAccount());
             }
         }
-        return sysUserMapper.selectPageVo(page,queryWrapper);
+        IPage iPage = sysUserMapper.selectPageVo(page,queryWrapper);
+        return iPage;
     }
 
 }

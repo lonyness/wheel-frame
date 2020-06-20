@@ -27,6 +27,23 @@
             <artifactId>fastjson</artifactId>
             <version>${fastjson}</version>
         </dependency>
+        <!--mybatis-plus-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>${mybatis-plus}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus</artifactId>
+            <version>${mybatis-plus}</version>
+        </dependency>
+        <!--依赖模块：db-->
+        <dependency>
+            <groupId>com.frame.wheel</groupId>
+            <artifactId>wheel-db</artifactId>
+            <version>${wheel.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

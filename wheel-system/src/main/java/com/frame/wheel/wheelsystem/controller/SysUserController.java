@@ -54,12 +54,12 @@ public class SysUserController {
 //        Page<SysUser> page1 = JSON.parseObject(json, TypeBuilder.newInstance(Page.class).addTypeParam(SysUser.class).build());
 //        print(page1.getRecords());
 //        System.out.println("json 正反序列化 end");
-          IPage<SysUser> userPage = sysUserService.selectUserPage(page,sysUser);
-//        System.out.println("总条数 ------> " + userPage.getTotal());
-//        System.out.println("当前页数 ------> " + userPage.getCurrent());
-//        System.out.println("当前每页显示数 ------> " + userPage.getSize());
-//        print(userPage.getRecords());
-//        System.out.println("----- 自定义 XML 分页 ------");
+        IPage<SysUser> userPage = sysUserService.selectUserPage(page,sysUser);
+        System.out.println("总条数 ------> " + userPage.getTotal());
+        System.out.println("当前页数 ------> " + userPage.getCurrent());
+        System.out.println("当前每页显示数 ------> " + userPage.getSize());
+        print(userPage.getRecords());
+        System.out.println("----- 自定义 XML 分页 ------");
 
         return userPage;
     }

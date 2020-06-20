@@ -24,12 +24,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <!--依赖模块：db-->
-        <dependency>
-            <groupId>com.frame.wheel</groupId>
-            <artifactId>wheel-db</artifactId>
-            <version>${wheel.version}</version>
-        </dependency>
         <!--依赖模块：util-->
         <dependency>
             <groupId>com.frame.wheel</groupId>

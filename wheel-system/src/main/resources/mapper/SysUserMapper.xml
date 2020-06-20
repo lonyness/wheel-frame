@@ -7,6 +7,9 @@
     </resultMap>
     <select id="selectPageVo" resultType="com.frame.wheel.wheelsystem.entity.SysUser">
          SELECT *  FROM sys_user
+        <if test="ew.emptyOfWhere == false">
+            ${ew.customSqlSegment}
+        </if>
     </select>
 
 

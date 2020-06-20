@@ -38,7 +38,7 @@ public class SysUserController {
     private SysUserService sysUserService;
 
     @RequestMapping("/pageList")
-    public IPage pageList(@ModelAttribute Page page) {
+    public IPage pageList(@ModelAttribute Page page,@ModelAttribute SysUser sysUser) {
 //        System.out.println("----- baseMapper 自带分页 ------");
 //        Page<SysUser> page = new Page<>(1, 5);
 //        IPage<SysUser> userIPage = sysUserMapper.selectPage(page, new QueryWrapper<SysUser>());
@@ -54,12 +54,13 @@ public class SysUserController {
 //        Page<SysUser> page1 = JSON.parseObject(json, TypeBuilder.newInstance(Page.class).addTypeParam(SysUser.class).build());
 //        print(page1.getRecords());
 //        System.out.println("json 正反序列化 end");
-        IPage<SysUser> userPage = sysUserService.selectUserPage(page,new SysUser());
+          IPage<SysUser> userPage = sysUserService.selectUserPage(page,sysUser);
 //        System.out.println("总条数 ------> " + userPage.getTotal());
 //        System.out.println("当前页数 ------> " + userPage.getCurrent());
 //        System.out.println("当前每页显示数 ------> " + userPage.getSize());
 //        print(userPage.getRecords());
 //        System.out.println("----- 自定义 XML 分页 ------");
+
         return userPage;
     }
     private <T> void print(List<T> list) {

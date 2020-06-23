@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -13,7 +14,7 @@ import java.util.Date;
  * @Date 2020年6月15日
  */
 @TableName(value = "sys_user")
-public class SysUser {
+public class SysUser implements Serializable {
 
   @TableId(value = "id",type = IdType.ASSIGN_ID)
   private long id;

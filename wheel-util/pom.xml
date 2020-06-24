@@ -38,6 +38,17 @@
             <artifactId>mybatis-plus</artifactId>
             <version>${mybatis-plus}</version>
         </dependency>
+        <!--依赖swagger2-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger2.version}</version>
+        </dependency>
         <!--依赖模块：db-->
         <dependency>
             <groupId>com.frame.wheel</groupId>

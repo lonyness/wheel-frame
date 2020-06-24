@@ -8,15 +8,14 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.frame.wheel.wheelsystem.dao.SysUserMapper;
 import com.frame.wheel.wheelsystem.entity.SysUser;
 import com.frame.wheel.wheelsystem.service.SysUserService;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
 
 @Service
 public class SysUserServiceImpl  extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
@@ -27,7 +26,7 @@ public class SysUserServiceImpl  extends ServiceImpl<SysUserMapper, SysUser> imp
     private RedisTemplate<String, IPage> redisTemplate;
 
     @Override
-    public IPage<SysUser> selectUserPage(Page<SysUser> page,SysUser sysUser) {
+    public IPage<SysUser> selectUserPage(@RequestParam(name = "page") Page<SysUser> page,@RequestParam(name = "sysUser")SysUser sysUser) {
         // 不进行 count sql 优化，解决 MP 无法自动优化 SQL 问题，这时候你需要自己查询 count 部分
         // page.setOptimizeCountSql(false);
         // 当 total 为非 0 时(默认为 0),分页插件不会进行 count 查询
@@ -38,19 +37,7 @@ public class SysUserServiceImpl  extends ServiceImpl<SysUserMapper, SysUser> imp
                 queryWrapper.like("account", sysUser.getAccount());
             }
         }
-        IPage iPage = new Page();
-        ValueOperations<String, IPage> operations = redisTemplate.opsForValue();
-        boolean hasKey = redisTemplate.hasKey(sysUser.getAccount());
-        if (hasKey) {
-            iPage = operations.get(sysUser.getAccount());
-            System.out.println("redis获取");
-            return iPage;
-        }else{
-            iPage = sysUserMapper.selectPageVo(page,queryWrapper);
-            operations.set(sysUser.getAccount(), iPage, 10, TimeUnit.SECONDS);
-            System.out.println("数据库获取获取");
-        }
-        return iPage;
+        return sysUserMapper.selectPageVo(page,queryWrapper);
     }
 
 }

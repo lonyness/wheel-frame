@@ -10,62 +10,33 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.frame.wheel.wheelsystem.dao.SysUserMapper;
 import com.frame.wheel.wheelsystem.entity.SysUser;
 import com.frame.wheel.wheelsystem.service.SysUserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
-/**
- * <p>
- *  前端控制器
- * </p>
- *
- * @author fr
- * @since 2019-01-24
- */
 @RestController
+@Api(tags = "sysUser", description = "用户管理")
 @RequestMapping("/sysUser")
 public class SysUserController {
-    @Autowired
-    private SysUserMapper sysUserMapper;
+//    @Autowired
+//    private SysUserMapper sysUserMapper;
     @Autowired
     private SysUserService sysUserService;
 
-    @RequestMapping("/pageList")
+    @GetMapping("/pageList")
+    @ApiOperation("用户查询")
     public IPage pageList(@ModelAttribute Page page,@ModelAttribute SysUser sysUser) {
-//        System.out.println("----- baseMapper 自带分页 ------");
-//        Page<SysUser> page = new Page<>(1, 5);
-//        IPage<SysUser> userIPage = sysUserMapper.selectPage(page, new QueryWrapper<SysUser>());
-////        Assert.assertSame(page, userIPage);
-//        System.out.println("总条数 ------> " + userIPage.getTotal());
-//        System.out.println("当前页数 ------> " + userIPage.getCurrent());
-//        System.out.println("当前每页显示数 ------> " + userIPage.getSize());
-//        print(userIPage.getRecords());
-//        System.out.println("----- baseMapper 自带分页 ------");
-//        return userIPage;
-//        System.out.println("json 正反序列化 begin");
-//        String json = JSON.toJSONString(page);
-//        Page<SysUser> page1 = JSON.parseObject(json, TypeBuilder.newInstance(Page.class).addTypeParam(SysUser.class).build());
-//        print(page1.getRecords());
-//        System.out.println("json 正反序列化 end");
-        IPage<SysUser> userPage = sysUserService.selectUserPage(page,sysUser);
-//        System.out.println("总条数 ------> " + userPage.getTotal());
-//        System.out.println("当前页数 ------> " + userPage.getCurrent());
-//        System.out.println("当前每页显示数 ------> " + userPage.getSize());
-//        print(userPage.getRecords());
-//        System.out.println("----- 自定义 XML 分页 ------");
 
-        return userPage;
+        return sysUserService.selectUserPage(page,sysUser);
     }
-    private <T> void print(List<T> list) {
-        if (!CollectionUtils.isEmpty(list)) {
-            list.forEach(System.out::println);
-        }
-    }
+//    private <T> void print(List<T> list) {
+//        if (!CollectionUtils.isEmpty(list)) {
+//            list.forEach(System.out::println);
+//        }
+//    }
 }

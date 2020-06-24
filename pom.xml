@@ -35,6 +35,8 @@
         <hutool.version>5.0.0</hutool.version>
         <!--fastjson-->
         <fastjson>1.2.62</fastjson>
+        <!--swagger2-->
+        <swagger2.version>2.5.0</swagger2.version>
         <relativePath/> <!-- lookup parent from repository -->
     </properties>
 

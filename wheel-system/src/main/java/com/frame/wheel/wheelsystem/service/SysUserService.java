@@ -7,4 +7,6 @@ import com.frame.wheel.wheelsystem.entity.SysUser;
 
 public interface SysUserService  extends IService<SysUser> {
     public IPage<SysUser> selectUserPage(Page<SysUser> page,SysUser sysUser);
+
+    public SysUser login(Page<SysUser> page,SysUser sysUser);
 }

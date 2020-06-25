@@ -22,4 +22,9 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
      * @return
      */
     public IPage<SysUser> selectPageVo(@Param("page") Page page,@Param(Constants.WRAPPER) QueryWrapper query);
+
+    /**
+     * 用户登录
+     */
+    public SysUser login(@Param(Constants.WRAPPER) QueryWrapper query);
 }

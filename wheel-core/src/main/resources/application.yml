@@ -32,6 +32,8 @@ spring:
     host: 127.0.0.1
     port: 6379
     database: 0
+    timeout: 500
+    password:
     lettuce:
       shutdown-timeout: 200ms
       pool:
@@ -39,6 +41,7 @@ spring:
         max-idle: 7
         min-idle: 2
         max-wait: -1ms
+
 #mybatis-plus
 mybatis-plus:
   global-config:

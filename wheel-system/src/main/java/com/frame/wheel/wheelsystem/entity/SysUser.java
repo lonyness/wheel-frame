@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.beans.Transient;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -18,190 +19,198 @@ import java.util.List;
 public class SysUser implements Serializable {
 
     //指定主键生成策略使用雪花算法（默认策略）
-  @TableId(value = "id",type = IdType.ASSIGN_ID)
-  private long id;
+    @TableId(value = "id",type = IdType.ASSIGN_ID)
+    private long id;
+    @TableField(value = "account")
+    private String account;
+    /**
+    * 密码  注解含义为只允许序列化而不能进行反序列化，直观效果就是返回的数据没有该属性
+    */
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String password;
+    private String salt;
+    private long sex;
+    private String email;
+    private String phone;
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    private Date birthday;
+    private long deptId;
+    private long accountStatus;
+    /**
+    * 创建时间，格式为yyyy-MM-dd HH:mm
+    * 仅在新增时进行数据插入
+    */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
+    @TableField(fill = FieldFill.INSERT)
+    private Date createTime;
+    /**
+    * 创建人
+    * 仅在新增时进行数据插入
+    */
+    @TableField(fill = FieldFill.INSERT)
+    private long createUser;
+    /**
+    * 修改时间，格式为yyyy-MM-dd HH:mm
+    * 在修改和更新时进行数据插入
+    */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
+    @TableField(fill = FieldFill.INSERT)
+    private Date updateTime;
+    /**
+    * 修改人
+    * 在修改和更新时进行数据插入
+    */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private long updateUser;
+    /**
+    * 乐观锁注释
+    */
+    @Version
+    private long version;
+    //用戶角色集合
+    @TableField(exist = false)
+    private List<SysRole> roles;
 
-  @TableField(value = "account")
-  private String account;
-  /**
-   * 密码  注解含义为只允许序列化而不能进行反序列化，直观效果就是返回的数据没有该属性
-   */
-  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-  private String password;
-  private String salt;
-  private long sex;
-  private String email;
-  private String phone;
-  @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-  private Date birthday;
-  private long deptId;
-  private long accountStatus;
-  /**
-   * 创建时间，格式为yyyy-MM-dd HH:mm
-   * 仅在新增时进行数据插入
-   */
-  @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
-  @TableField(fill = FieldFill.INSERT)
-  private Date createTime;
-  /**
-   * 创建人
-   * 仅在新增时进行数据插入
-   */
-  @TableField(fill = FieldFill.INSERT)
-  private long createUser;
-  /**
-   * 修改时间，格式为yyyy-MM-dd HH:mm
-   * 在修改和更新时进行数据插入
-   */
-  @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
-  @TableField(fill = FieldFill.INSERT)
-  private Date updateTime;
-  /**
-   * 修改人
-   * 在修改和更新时进行数据插入
-   */
-  @TableField(fill = FieldFill.INSERT_UPDATE)
-  private long updateUser;
-  /**
-   * 乐观锁注释
-   */
-  @Version
-  private long version;
 
-//  private List<SysRole>
-
-
-  public long getId() {
+    public long getId() {
     return id;
-  }
+    }
 
-  public void setId(long id) {
+    public void setId(long id) {
     this.id = id;
-  }
+    }
 
 
-  public String getAccount() {
+    public String getAccount() {
     return account;
-  }
+    }
 
-  public void setAccount(String account) {
+    public void setAccount(String account) {
     this.account = account;
-  }
+    }
 
 
-  public String getPassword() {
+    public String getPassword() {
     return password;
-  }
+    }
 
-  public void setPassword(String password) {
+    public void setPassword(String password) {
     this.password = password;
-  }
+    }
 
 
-  public String getSalt() {
+    public String getSalt() {
     return salt;
-  }
+    }
 
-  public void setSalt(String salt) {
+    public void setSalt(String salt) {
     this.salt = salt;
-  }
+    }
 
 
-  public long getSex() {
+    public long getSex() {
     return sex;
-  }
+    }
 
-  public void setSex(long sex) {
+    public void setSex(long sex) {
     this.sex = sex;
-  }
+    }
 
 
-  public String getEmail() {
+    public String getEmail() {
     return email;
-  }
+    }
 
-  public void setEmail(String email) {
+    public void setEmail(String email) {
     this.email = email;
-  }
+    }
 
 
-  public String getPhone() {
+    public String getPhone() {
     return phone;
-  }
+    }
 
-  public void setPhone(String phone) {
+    public void setPhone(String phone) {
     this.phone = phone;
-  }
+    }
 
 
-  public Date getBirthday() {
+    public Date getBirthday() {
     return birthday;
-  }
+    }
 
-  public void setBirthday(Date birthday) {
+    public void setBirthday(Date birthday) {
     this.birthday = birthday;
-  }
+    }
 
 
-  public long getDeptId() {
+    public long getDeptId() {
     return deptId;
-  }
+    }
 
-  public void setDeptId(long deptId) {
+    public void setDeptId(long deptId) {
     this.deptId = deptId;
-  }
+    }
 
-  public long getAccountStatus() {
+    public long getAccountStatus() {
     return accountStatus;
-  }
+    }
 
-  public void setAccountStatus(long accountStatus) {
+    public void setAccountStatus(long accountStatus) {
     this.accountStatus = accountStatus;
-  }
+    }
 
 
-  public Date getCreateTime() {
+    public Date getCreateTime() {
     return createTime;
-  }
+    }
 
-  public void setCreateTime(Date createTime) {
+    public void setCreateTime(Date createTime) {
     this.createTime = createTime;
-  }
+    }
 
 
-  public long getCreateUser() {
+    public long getCreateUser() {
     return createUser;
-  }
+    }
 
-  public void setCreateUser(long createUser) {
+    public void setCreateUser(long createUser) {
     this.createUser = createUser;
-  }
+    }
 
 
-  public Date getUpdateTime() {
+    public Date getUpdateTime() {
     return updateTime;
-  }
+    }
 
-  public void setUpdateTime(Date updateTime) {
+    public void setUpdateTime(Date updateTime) {
     this.updateTime = updateTime;
-  }
+    }
 
 
-  public long getUpdateUser() {
+    public long getUpdateUser() {
     return updateUser;
-  }
+    }
 
-  public void setUpdateUser(long updateUser) {
+    public void setUpdateUser(long updateUser) {
     this.updateUser = updateUser;
-  }
+    }
 
 
-  public long getVersion() {
+    public long getVersion() {
     return version;
-  }
+    }
 
-  public void setVersion(long version) {
+    public void setVersion(long version) {
     this.version = version;
-  }
+    }
 
+    @Transient
+    public List<SysRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<SysRole> roles) {
+        this.roles = roles;
+    }
 }

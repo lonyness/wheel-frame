@@ -4,13 +4,15 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
+import java.io.Serializable;
+
 /**
  * 权限-角色关联表
  * @author lonyness
  * @Date 2020年6月25日
  */
 @TableName(value = "sys_role_permissions")
-public class SysRolePermissions {
+public class SysRolePermissions implements Serializable {
 
   //指定主键生成策略使用雪花算法（默认策略）
   @TableId(value = "id",type = IdType.ASSIGN_ID)

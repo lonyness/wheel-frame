@@ -3,6 +3,7 @@ package com.frame.wheel.wheelsystem.entity;
 import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -11,7 +12,7 @@ import java.util.Date;
  * @Date 2020年6月25日
  */
 @TableName(value = "sys_permissions")
-public class SysPermissions {
+public class SysPermissions implements Serializable {
 
   //指定主键生成策略使用雪花算法（默认策略）
   @TableId(value = "id",type = IdType.ASSIGN_ID)

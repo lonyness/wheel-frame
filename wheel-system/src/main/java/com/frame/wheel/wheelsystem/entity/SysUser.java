@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 用户信息表
@@ -16,6 +17,7 @@ import java.util.Date;
 @TableName(value = "sys_user")
 public class SysUser implements Serializable {
 
+    //指定主键生成策略使用雪花算法（默认策略）
   @TableId(value = "id",type = IdType.ASSIGN_ID)
   private long id;
 
@@ -33,7 +35,6 @@ public class SysUser implements Serializable {
   @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
   private Date birthday;
   private long deptId;
-  private String roleId;
   private long accountStatus;
   /**
    * 创建时间，格式为yyyy-MM-dd HH:mm
@@ -66,6 +67,8 @@ public class SysUser implements Serializable {
    */
   @Version
   private long version;
+
+//  private List<SysRole>
 
 
   public long getId() {
@@ -147,16 +150,6 @@ public class SysUser implements Serializable {
   public void setDeptId(long deptId) {
     this.deptId = deptId;
   }
-
-
-  public String getRoleId() {
-    return roleId;
-  }
-
-  public void setRoleId(String roleId) {
-    this.roleId = roleId;
-  }
-
 
   public long getAccountStatus() {
     return accountStatus;

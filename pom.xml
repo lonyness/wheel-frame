@@ -37,6 +37,8 @@
         <fastjson>1.2.62</fastjson>
         <!--swagger2-->
         <swagger2.version>2.5.0</swagger2.version>
+        <!--shiro.version-->
+        <shiro.version>1.5.3</shiro.version>
         <relativePath/> <!-- lookup parent from repository -->
     </properties>
 

@@ -1,6 +1,7 @@
 package com.frame.wheel.wheelsystem.controller;
 
 import com.frame.wheel.wheelsystem.entity.SysUser;
+import com.frame.wheel.wheelsystem.util.ShiroUtil;
 import com.frame.wheel.wheelutil.base.controller.BaseController;
 import io.swagger.annotations.Api;
 import org.apache.shiro.SecurityUtils;
@@ -25,7 +26,8 @@ public class LoginController extends BaseController {
         try {
             //完成登录
             subject.login(usernamePasswordToken);
-            return subject.getSession().getId().toString();
+            String account = ShiroUtil.getCurrentUser().getAccount();
+            return account;
         } catch (Exception e) {
             return e.getMessage();
         }

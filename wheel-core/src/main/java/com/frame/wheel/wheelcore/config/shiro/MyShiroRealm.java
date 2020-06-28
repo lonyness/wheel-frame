@@ -2,6 +2,7 @@ package com.frame.wheel.wheelcore.config.shiro;
 
 import cn.hutool.core.lang.Validator;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.frame.wheel.wheelbase.service.ShiroService;
 import com.frame.wheel.wheelsystem.dao.SysUserMapper;
 import com.frame.wheel.wheelsystem.entity.SysUser;
 import com.frame.wheel.wheelutil.base.util.PasswordUtil;
@@ -23,7 +24,7 @@ import java.util.Set;
 public class MyShiroRealm extends AuthorizingRealm {
 
     @Autowired
-    SysUserMapper sysUserMapper;
+    private ShiroService shiroService;
 
     public MyShiroRealm() {
         super();
@@ -38,25 +39,12 @@ public class MyShiroRealm extends AuthorizingRealm {
         UsernamePasswordToken utoken = (UsernamePasswordToken) authcToken;
         SysUser sysUser = new SysUser();
         sysUser.setAccount(utoken.getUsername());
-        //利用
-        QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>();
-        if (Validator.isNotEmpty(sysUser.getAccount())) {
-            queryWrapper.eq("account", sysUser.getAccount());
-        }
-        //根据账号密码查用户信息
-        SysUser user = sysUserMapper.validate(queryWrapper);
-        //根据获取的密码盐对传输过来的密码内容进行解密
-        String password = PasswordUtil.encryptedPasswords(new String(utoken.getPassword()), user.getSalt());
-        if (null == user) {
-            throw new AccountException("账号不存在！");
-        }else if(password==null||password==""){
-            throw new AccountException("请输入账户密码！");
-        }//对获取到的密码和解密后密码进行比较
-        else if (!password.equals(user.getPassword())) {
-            throw new AccountException("密码不正确！");
-        }
+        sysUser.setPassword(new String(utoken.getPassword()));
+        //根据账号密码查用户信息并进行验证操作
+        SysUser user = shiroService.validate(sysUser);
+
         SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(user.getAccount(),// 用户名
-                user.getPassword(), // 密码
+                new String(utoken.getPassword()), // 密码
                 getName());
         return simpleAuthenticationInfo;
     }
@@ -68,7 +56,7 @@ public class MyShiroRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-        String userName = principals.getPrimaryPrincipal().toString().split(":")[0];
+        String account = principals.getPrimaryPrincipal().toString().split(":")[0];
         //根据用户userName查询权限（permission) 此处省略sql写固定权限
         Set<String> permissions = new HashSet<>();
         permissions.add("shiro:all");

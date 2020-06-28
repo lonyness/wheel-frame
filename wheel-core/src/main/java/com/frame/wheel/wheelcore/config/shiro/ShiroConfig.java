@@ -1,10 +1,15 @@
 package com.frame.wheel.wheelcore.config.shiro;
 
+import com.frame.wheel.wheelsystem.constant.SessionConstant;
+import com.frame.wheel.wheelutil.base.constant.key.Key;
+import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.SimpleCookie;
 import org.crazycake.shiro.RedisCacheManager;
 import org.crazycake.shiro.RedisManager;
 import org.crazycake.shiro.RedisSessionDAO;
@@ -71,6 +76,8 @@ public class ShiroConfig {
         securityManager.setSessionManager(sessionManager());
         // 自定义缓存实现 使用redis
         securityManager.setCacheManager(cacheManager());
+        // 注入记住我管理器
+        securityManager.setRememberMeManager(rememberMeManager());
         return securityManager;
     }
 
@@ -137,6 +144,35 @@ public class ShiroConfig {
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
         authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
         return authorizationAttributeSourceAdvisor;
+    }
+
+    /**
+     * cookie对象
+     * rememberMeCookie()方法是设置Cookie的生成模版，比如cookie的name，cookie的有效时间等等
+     *
+     * @return SimpleCookie
+     */
+    private SimpleCookie rememberMeCookie() {
+        // 这个参数是cookie的名称，对应前端的checkbox的name = rememberMe
+        SimpleCookie simpleCookie = new SimpleCookie(SessionConstant.COKOKIE_REMEMBERME);
+        // 防止跨站脚本
+        simpleCookie.setHttpOnly(true);
+        // 记住我cookie生效时间30天,不设置默认永不过期 单位: 秒
+        simpleCookie.setMaxAge(259200);
+        return simpleCookie;
+    }
+
+    /**
+     * cookie管理对象;记住我功能
+     *
+     * @return CookieRememberMeManager
+     */
+    private CookieRememberMeManager rememberMeManager() {
+        CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
+        cookieRememberMeManager.setCookie(rememberMeCookie());
+        //rememberMe
+        cookieRememberMeManager.setCipherKey(Base64.decode(Key.REMEMBER_ME));
+        return cookieRememberMeManager;
     }
 }
 

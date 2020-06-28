@@ -8,6 +8,7 @@ import com.frame.wheel.wheelbase.service.ShiroService;
 import com.frame.wheel.wheelsystem.dao.SysUserMapper;
 import com.frame.wheel.wheelsystem.entity.SysUser;
 import com.frame.wheel.wheelsystem.service.SysUserService;
+import com.frame.wheel.wheelsystem.util.ShiroUtil;
 import com.frame.wheel.wheelutil.base.util.PasswordUtil;
 import org.apache.shiro.authc.AccountException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,7 @@ public class ShiroServiceImpl  extends ServiceImpl<SysUserMapper, SysUser> imple
         else if (!password.equals(getUser.getPassword())) {
             throw new AccountException("密码不正确！");
         }
+        ShiroUtil.setCurrentUser(getUser);
         return getUser;
     }
 }

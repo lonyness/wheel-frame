@@ -41,13 +41,13 @@ public class SysUserServiceImpl  extends ServiceImpl<SysUserMapper, SysUser> imp
     }
 
     @Override
-    public SysUser login(Page<SysUser> page, SysUser sysUser) {
+    public SysUser validate(Page<SysUser> page, SysUser sysUser) {
         QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>();
         if (sysUser != null) {
             if (Validator.isNotEmpty(sysUser.getAccount())) {
                 queryWrapper.like("account", sysUser.getAccount());
             }
         }
-        return sysUserMapper.login(queryWrapper);
+        return sysUserMapper.validate(queryWrapper);
     }
 }

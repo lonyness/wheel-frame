@@ -26,5 +26,5 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
     /**
      * 用户登录
      */
-    public SysUser login(@Param(Constants.WRAPPER) QueryWrapper query);
+    public SysUser validate(@Param(Constants.WRAPPER) QueryWrapper query);
 }

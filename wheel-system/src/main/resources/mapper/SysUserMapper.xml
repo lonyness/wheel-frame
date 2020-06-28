@@ -11,7 +11,7 @@
             ${ew.customSqlSegment}
         </if>
     </select>
-    <select id="login" resultType="com.frame.wheel.wheelsystem.entity.SysUser">
+    <select id="validate" resultType="com.frame.wheel.wheelsystem.entity.SysUser">
         SELECT *  FROM sys_user
         <if test="ew.emptyOfWhere == false">
             ${ew.customSqlSegment}

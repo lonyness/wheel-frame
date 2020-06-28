@@ -43,7 +43,7 @@ public class MyShiroRealm extends AuthorizingRealm {
             queryWrapper.like("account", sysUser.getAccount());
         }
         //根据账号密码查用户信息
-        SysUser user = sysUserMapper.login(queryWrapper);
+        SysUser user = sysUserMapper.validate(queryWrapper);
         if (null == user) {
             throw new AccountException("账号不存在！");
         } else if (!StringUtils.equals(user.getPassword(), sysUser.getPassword())) {

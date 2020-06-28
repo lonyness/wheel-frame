@@ -4,6 +4,7 @@ import cn.hutool.core.lang.Validator;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.frame.wheel.wheelsystem.dao.SysUserMapper;
 import com.frame.wheel.wheelsystem.entity.SysUser;
+import com.frame.wheel.wheelutil.base.util.PasswordUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -37,16 +38,21 @@ public class MyShiroRealm extends AuthorizingRealm {
         UsernamePasswordToken utoken = (UsernamePasswordToken) authcToken;
         SysUser sysUser = new SysUser();
         sysUser.setAccount(utoken.getUsername());
-        sysUser.setPassword(new String(utoken.getPassword()));
+        //利用
         QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>();
         if (Validator.isNotEmpty(sysUser.getAccount())) {
-            queryWrapper.like("account", sysUser.getAccount());
+            queryWrapper.eq("account", sysUser.getAccount());
         }
         //根据账号密码查用户信息
         SysUser user = sysUserMapper.validate(queryWrapper);
+        //根据获取的密码盐对传输过来的密码内容进行解密
+        String password = PasswordUtil.encryptedPasswords(new String(utoken.getPassword()), user.getSalt());
         if (null == user) {
             throw new AccountException("账号不存在！");
-        } else if (!StringUtils.equals(user.getPassword(), sysUser.getPassword())) {
+        }else if(password==null||password==""){
+            throw new AccountException("请输入账户密码！");
+        }//对获取到的密码和解密后密码进行比较
+        else if (!password.equals(user.getPassword())) {
             throw new AccountException("密码不正确！");
         }
         SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(user.getAccount(),// 用户名

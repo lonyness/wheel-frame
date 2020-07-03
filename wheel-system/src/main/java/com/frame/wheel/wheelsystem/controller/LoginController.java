@@ -1,5 +1,6 @@
 package com.frame.wheel.wheelsystem.controller;
 
+import cn.hutool.core.lang.Validator;
 import com.frame.wheel.wheelsystem.entity.SysUser;
 import com.frame.wheel.wheelsystem.util.ShiroUtil;
 import com.frame.wheel.wheelutil.base.controller.BaseController;
@@ -7,20 +8,48 @@ import io.swagger.annotations.Api;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @RestController
 @Api(tags = "用户登录、注销")
 public class LoginController extends BaseController {
 
 
+    /**
+     * 登录页面
+     *
+     * @return String
+     */
+    @GetMapping("/login1")
+    public String login(Model model) {
+        HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+        // 正常访问登录
+        System.out.println("是否登录"+SecurityUtils.getSubject().isAuthenticated());
+        System.out.println("是否记住"+SecurityUtils.getSubject().isRemembered());
+        if (SecurityUtils.getSubject().isAuthenticated() || SecurityUtils.getSubject().isRemembered()) {
+            return ShiroUtil.getCurrentUser().getAccount();
+        }else{
+            return "login";
+        }
+    }
+
+
+
     @GetMapping("/login")
-    public String login(SysUser sysUser) {
+    public String login(SysUser sysUser,boolean rememberMe) {
         //验证用户信息
         UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(sysUser.getAccount(), sysUser.getPassword());
+        usernamePasswordToken.setRememberMe(rememberMe);
         Subject subject = SecurityUtils.getSubject();
         Map<String, Object> map = new HashMap<>();
         try {

@@ -48,13 +48,13 @@ public class ShiroConfig {
         // 登录页面
         shiroFilterFactoryBean.setLoginUrl("/login");
         // 登录成功后的页面
-        shiroFilterFactoryBean.setSuccessUrl("/");
+        shiroFilterFactoryBean.setSuccessUrl("/index");
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
 
         //配置shiro默认登录界面地址，前后端分离中登录界面跳转应由前端路由控制，后台仅返回json数据
         //注意过滤器配置顺序 不能颠倒
         //配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了，登出后跳转配置的loginUrl
-        filterChainDefinitionMap.put("/shiro/logout2", "logout");
+        filterChainDefinitionMap.put("/", "user");
         // 配置不会被拦截的链接 顺序判断
         filterChainDefinitionMap.put("/static/**", "anon");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);

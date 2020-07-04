@@ -8,9 +8,11 @@ import io.swagger.annotations.Api;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -20,7 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-@RestController
+@Controller
 @Api(tags = "用户登录、注销")
 public class LoginController extends BaseController {
 
@@ -30,22 +32,20 @@ public class LoginController extends BaseController {
      *
      * @return String
      */
-    @GetMapping("/login1")
-    public String login(Model model) {
+    @GetMapping("/login")
+    public String login() {
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
         // 正常访问登录
-        System.out.println("是否登录"+SecurityUtils.getSubject().isAuthenticated());
-        System.out.println("是否记住"+SecurityUtils.getSubject().isRemembered());
         if (SecurityUtils.getSubject().isAuthenticated() || SecurityUtils.getSubject().isRemembered()) {
             return ShiroUtil.getCurrentUser().getAccount();
         }else{
-            return "login";
+            return "production/login.html";
         }
     }
 
 
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public String login(SysUser sysUser,boolean rememberMe) {
         //验证用户信息
         UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(sysUser.getAccount(), sysUser.getPassword());

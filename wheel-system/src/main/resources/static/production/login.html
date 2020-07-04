@@ -7,8 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Gentelella Alela! | </title>
-
+    <title>wheel-frame! | Lonyness</title>
+<!--    <link rel="icon" href="/ltxyh/resources/images/ico.ico" type="image/x-icon">-->
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -17,7 +17,6 @@
     <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- Animate.css -->
     <link href="../vendors/animate.css/animate.min.css" rel="stylesheet">
-
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
   </head>
@@ -33,10 +32,10 @@
             <form>
               <h1>账户登录</h1>
               <div>
-                <input type="text" class="form-control" placeholder="Username" required="" />
+                <input type="text" class="form-control" placeholder="用户名" required="" />
               </div>
               <div>
-                <input type="password" class="form-control" placeholder="Password" required="" />
+                <input type="password" class="form-control" placeholder="密码" required="" />
               </div>
               <div>
                 <a class="btn btn-default submit" href="index.html">登录</a>
@@ -46,8 +45,8 @@
               <div class="clearfix"></div>
 
               <div class="separator">
-                <p class="change_link">首次访问?
-                  <a href="#signup" class="to_register"> 创建账号 </a>
+                <p class="change_link">新用户?
+                  <a href="#signup" class="to_register"> 创建账户 </a>
                 </p>
 
                 <div class="clearfix"></div>
@@ -55,7 +54,7 @@
 
                 <div>
                   <h1><i class="fa fa-paw"></i> wheel-frame!</h1>
-                  <p>©2020 </p>
+                  <p>©2020 版权所有 Lonyness</p>
                 </div>
               </div>
             </form>
@@ -65,53 +64,33 @@
         <div id="register" class="animate form registration_form">
           <section class="login_content">
             <form>
-              <h1>Create Account</h1>
+              <h1>创建账户</h1>
               <div>
-                <input type="text" class="form-control" placeholder="Username" required="" />
+                <input type="text" class="form-control" placeholder="用户名" required="" />
               </div>
               <div>
-                <input type="email" class="form-control" placeholder="Email" required="" />
+                <input type="email" class="form-control" placeholder="邮箱地址" required="" />
               </div>
               <div>
-                <input type="password" class="form-control" placeholder="Password" required="" />
+                <input type="password" class="form-control" placeholder="密码" required="" />
               </div>
-              <div>/**
-                * 表单验证
-                * @param $form {object} 表单对象
-                * @param data {object} 表单内容
-                * @return {boolean} true/false
-                */
-                let validate = function ($form, data) {
-                if (EUtil.isBlank(data.username)) {
-                showMsg($form, 'danger', '请输入用户名');
-                return false;
-                }
-                if (EUtil.isBlank(data.password)) {
-                showMsg($form, 'danger', '请输入密码');
-                return false;
-                }
-                if (loginAttempts >= loginAttemptsVerificationCode && EUtil.isBlank(data.code)) {
-                showMsg($form, 'danger', '请输入验证码');
-                return false;
-                }
-                return true;
-                };
-                <a class="btn btn-default submit" href="index.html">Submit</a>
+              <div>
+                <a class="btn btn-default submit" href="index.html">提交</a>
               </div>
 
               <div class="clearfix"></div>
 
               <div class="separator">
-                <p class="change_link">Already a member ?
-                  <a href="#signin" class="to_register"> Log in </a>
+                <p class="change_link">已有账户 ?
+                  <a href="#signin" class="to_register"> 登录 </a>
                 </p>
 
                 <div class="clearfix"></div>
                 <br />
 
                 <div>
-                  <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
-                  <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
+                  <h1><i class="wheel-logo"></i> wheel——frame!</h1>
+                  <p>©2020 版权所有 Lonyness</p>
                 </div>
               </div>
             </form>

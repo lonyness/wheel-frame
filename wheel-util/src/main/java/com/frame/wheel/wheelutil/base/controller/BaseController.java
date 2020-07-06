@@ -15,5 +15,6 @@ public class BaseController {
      * redirect
      */
     protected static String REDIRECT = "redirect:";
+
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
 }

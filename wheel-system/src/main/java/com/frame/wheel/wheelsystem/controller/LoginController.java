@@ -38,14 +38,14 @@ public class LoginController extends BaseController {
         System.out.println(SecurityUtils.getSubject().isAuthenticated());
         if ((request != null ? request.getParameter("login_elsewhere") : null) != null) {
             SecurityUtils.getSubject().logout();
-            return "production/index.html";
+            return "index.html";
         }
         // 正常访问登录
         if (SecurityUtils.getSubject().isAuthenticated() || SecurityUtils.getSubject().isRemembered()) {
-            return "production/index.html";
+            return "login.html";
         }else{
 //            return REDIRECT + "/";
-            return "production/login.html";
+            return "login.html";
         }
     }
 
@@ -61,7 +61,7 @@ public class LoginController extends BaseController {
             //完成登录
             subject.login(usernamePasswordToken);
             String account = ShiroUtil.getCurrentUser().getAccount();
-            return "production/index.html";
+            return "login.html";
         } catch (Exception e) {
             return e.getMessage();
         }

@@ -26,7 +26,6 @@ import java.util.Objects;
 @Api(tags = "用户登录、注销")
 public class LoginController extends BaseController {
 
-
     /**
      * 登录页面
      *
@@ -35,14 +34,20 @@ public class LoginController extends BaseController {
     @GetMapping("/login")
     public String login() {
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+        System.out.println(SecurityUtils.getSubject().isRemembered());
+        System.out.println(SecurityUtils.getSubject().isAuthenticated());
+        if ((request != null ? request.getParameter("login_elsewhere") : null) != null) {
+            SecurityUtils.getSubject().logout();
+            return "production/index.html";
+        }
         // 正常访问登录
         if (SecurityUtils.getSubject().isAuthenticated() || SecurityUtils.getSubject().isRemembered()) {
-            return ShiroUtil.getCurrentUser().getAccount();
+            return "production/index.html";
         }else{
+//            return REDIRECT + "/";
             return "production/login.html";
         }
     }
-
 
 
     @PostMapping("/login")
@@ -56,7 +61,7 @@ public class LoginController extends BaseController {
             //完成登录
             subject.login(usernamePasswordToken);
             String account = ShiroUtil.getCurrentUser().getAccount();
-            return account;
+            return "production/index.html";
         } catch (Exception e) {
             return e.getMessage();
         }

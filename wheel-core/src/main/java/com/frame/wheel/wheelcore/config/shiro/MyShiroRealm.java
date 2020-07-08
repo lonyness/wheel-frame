@@ -6,6 +6,7 @@ import com.frame.wheel.wheelbase.service.ShiroService;
 import com.frame.wheel.wheelsystem.dao.SysUserMapper;
 import com.frame.wheel.wheelsystem.entity.SysUser;
 import com.frame.wheel.wheelsystem.util.ShiroUtil;
+import com.frame.wheel.wheelutil.base.exception.WheelException;
 import com.frame.wheel.wheelutil.base.util.PasswordUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
@@ -37,8 +38,8 @@ public class MyShiroRealm extends AuthorizingRealm {
      * 认证信息，主要针对用户登录，
      */
     @Override
-    protected AuthenticationInfo doGetAuthenticationInfo(
-            AuthenticationToken authcToken) throws AuthenticationException {
+    protected AuthenticationInfo doGetAuthenticationInfo (
+            AuthenticationToken authcToken) {
         UsernamePasswordToken utoken = (UsernamePasswordToken) authcToken;
         SysUser sysUser = new SysUser();
         sysUser.setAccount(utoken.getUsername());

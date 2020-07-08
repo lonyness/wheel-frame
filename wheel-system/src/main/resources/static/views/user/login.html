@@ -114,7 +114,11 @@
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
           if(textStatus=="error"){
-            alert("非法访问！");
+            let res = XMLHttpRequest.responseText;
+            layer.msg(res, {
+              offset: '15px'
+              ,icon: 5
+            });
           }
         },
         success: function (data) {

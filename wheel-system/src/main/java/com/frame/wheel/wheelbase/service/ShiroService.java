@@ -1,6 +1,7 @@
 package com.frame.wheel.wheelbase.service;
 
 import com.frame.wheel.wheelsystem.entity.SysUser;
+import com.frame.wheel.wheelutil.base.exception.WheelException;
 
 public interface ShiroService {
 

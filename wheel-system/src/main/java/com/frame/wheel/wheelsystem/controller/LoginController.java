@@ -3,6 +3,7 @@ package com.frame.wheel.wheelsystem.controller;
 import com.frame.wheel.wheelsystem.entity.SysUser;
 import com.frame.wheel.wheelsystem.util.ShiroUtil;
 import com.frame.wheel.wheelutil.base.controller.BaseController;
+import com.frame.wheel.wheelutil.base.exception.WheelException;
 import com.frame.wheel.wheelutil.base.vo.BaseResult;
 import io.swagger.annotations.Api;
 import org.apache.shiro.SecurityUtils;
@@ -57,8 +58,9 @@ public class LoginController extends BaseController {
             subject.login(usernamePasswordToken);
             SysUser account = ShiroUtil.getCurrentUser();
             return BaseResult.successMessage(account);
-        } catch (Exception e) {
-            return BaseResult.faileMessage(e.getMessage());
+        } catch (WheelException e) {
+            System.out.println(e.getLocalizedMessage());
+            return null;
         }
     }
 

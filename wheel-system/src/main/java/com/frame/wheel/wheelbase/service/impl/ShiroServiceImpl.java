@@ -42,4 +42,10 @@ public class ShiroServiceImpl  extends ServiceImpl<SysUserMapper, SysUser> imple
         ShiroUtil.setCurrentUser(getUser);
         return getUser;
     }
+
+    @Override
+    public SysUser getUserPermissions(SysUser sysUser) {
+
+        return null;
+    }
 }

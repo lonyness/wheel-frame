@@ -69,8 +69,9 @@ public class SysUser implements Serializable {
     private long version;
     //用戶角色集合
     @TableField(exist = false)
-    private List<SysRole> roles;
-
+    private List<String> roles;
+    @TableField(exist = false)
+    private List<String> permissionList;
 
     public long getId() {
     return id;
@@ -206,11 +207,20 @@ public class SysUser implements Serializable {
     }
 
     @Transient
-    public List<SysRole> getRoles() {
+    public List<String> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<SysRole> roles) {
+    public void setRoles(List<String> roles) {
         this.roles = roles;
+    }
+
+    @Transient
+    public List<String> getPermissionList() {
+        return permissionList;
+    }
+
+    public void setPermissionList(List<String> permissionList) {
+        this.permissionList = permissionList;
     }
 }

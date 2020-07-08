@@ -1,57 +1,52 @@
 package com.frame.wheel.wheelsystem.controller;
 
-import cn.hutool.core.lang.Validator;
 import com.frame.wheel.wheelsystem.entity.SysUser;
 import com.frame.wheel.wheelsystem.util.ShiroUtil;
 import com.frame.wheel.wheelutil.base.controller.BaseController;
+import com.frame.wheel.wheelutil.base.vo.BaseResult;
 import io.swagger.annotations.Api;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 @Controller
 @Api(tags = "用户登录、注销")
 public class LoginController extends BaseController {
 
     /**
-     * 登录页面
-     *
+     * 访问登录页面
      * @return String
      */
     @GetMapping("/login")
     public String login() {
-        HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
-        System.out.println(SecurityUtils.getSubject().isRemembered());
-        System.out.println(SecurityUtils.getSubject().isAuthenticated());
-        if ((request != null ? request.getParameter("login_elsewhere") : null) != null) {
-            SecurityUtils.getSubject().logout();
-            return "index.html";
-        }
+//        HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+//        System.out.println(SecurityUtils.getSubject().isRemembered());
+//        System.out.println(SecurityUtils.getSubject().isAuthenticated());
         // 正常访问登录
         if (SecurityUtils.getSubject().isAuthenticated() || SecurityUtils.getSubject().isRemembered()) {
-            return "login.html";
+            return "views/index.html";
         }else{
 //            return REDIRECT + "/";
-            return "login.html";
+            return "views/user/login.html";
         }
     }
 
-
+    /**
+     * 账户登录
+     * @param sysUser
+     * @param rememberMe
+     * @return
+     */
     @PostMapping("/login")
-    public String login(SysUser sysUser,boolean rememberMe) {
+    @ResponseBody
+    public BaseResult login(SysUser sysUser, boolean rememberMe) {
         //验证用户信息
         UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(sysUser.getAccount(), sysUser.getPassword());
         usernamePasswordToken.setRememberMe(rememberMe);
@@ -60,10 +55,10 @@ public class LoginController extends BaseController {
         try {
             //完成登录
             subject.login(usernamePasswordToken);
-            String account = ShiroUtil.getCurrentUser().getAccount();
-            return "login.html";
+            SysUser account = ShiroUtil.getCurrentUser();
+            return BaseResult.successMessage(account);
         } catch (Exception e) {
-            return e.getMessage();
+            return BaseResult.faileMessage(e.getMessage());
         }
     }
 

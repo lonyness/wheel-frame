@@ -5,13 +5,16 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.frame.wheel.wheelbase.service.ShiroService;
 import com.frame.wheel.wheelsystem.dao.SysUserMapper;
 import com.frame.wheel.wheelsystem.entity.SysUser;
+import com.frame.wheel.wheelsystem.util.ShiroUtil;
 import com.frame.wheel.wheelutil.base.util.PasswordUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashSet;
@@ -55,13 +58,19 @@ public class MyShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 
-        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-        String account = principals.getPrimaryPrincipal().toString().split(":")[0];
-        //根据用户userName查询权限（permission) 此处省略sql写固定权限
-        Set<String> permissions = new HashSet<>();
-        permissions.add("shiro:all");
-        info.setStringPermissions(permissions);
-        return info;
+        // 当前登录用户
+        SysUser currentUser = (SysUser) principals.getPrimaryPrincipal();
+
+        // 由于修改用户角色或者修改角色权限导致权限变动,所以每次授权都要重新查询
+        SysUser sysUser = shiroService.getUserPermissions(currentUser);
+
+        SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
+//        // 赋予权限
+//        simpleAuthorizationInfo.addStringPermissions(sysUser.getPermissionList());
+//        // 赋予角色
+//        simpleAuthorizationInfo.addRoles(sysUser.getRoleList());
+        ShiroUtil.setCurrentUser(sysUser);
+        return simpleAuthorizationInfo;
     }
 }
 

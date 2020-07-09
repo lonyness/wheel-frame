@@ -18,8 +18,8 @@
 
     <div class="layadmin-user-login-main">
       <div class="layadmin-user-login-box layadmin-user-login-header">
-        <h2>layuiAdmin</h2>
-        <p>layui 官方出品的单页面后台管理模板系统</p>
+        <h2>wheel-frame</h2>
+        <p>个人学习java的一个平台</p>
       </div>
       <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
         <div class="layui-form-item">
@@ -61,15 +61,15 @@
       </div>
     </div>
     
-    <div class="layui-trans layadmin-user-login-footer">
-      
-      <p>© 2018 <a href="http://www.layui.com/" target="_blank">layui.com</a></p>
-      <p>
-        <span><a href="http://www.layui.com/admin/#get" target="_blank">获取授权</a></span>
-        <span><a href="http://www.layui.com/admin/pro/" target="_blank">在线演示</a></span>
-        <span><a href="http://www.layui.com/admin/" target="_blank">前往官网</a></span>
-      </p>
-    </div>
+<!--    <div class="layui-trans layadmin-user-login-footer">-->
+<!--      -->
+<!--      <p>© 2020 <a href="http://www.layui.com/" target="_blank">layui.com</a></p>-->
+<!--      <p>-->
+<!--        <span><a href="http://www.layui.com/admin/#get" target="_blank">获取授权</a></span>-->
+<!--        <span><a href="http://www.layui.com/admin/pro/" target="_blank">在线演示</a></span>-->
+<!--        <span><a href="http://www.layui.com/admin/" target="_blank">前往官网</a></span>-->
+<!--      </p>-->
+<!--    </div>-->
     
     <!--<div class="ladmin-user-login-theme">
       <script type="text/html" template>
@@ -88,61 +88,54 @@
 
   <script src="../../layuiadmin/layui/layui.js"></script>  
   <script>
-  layui.config({
-    base: '../../layuiadmin/' //静态资源所在路径
-  }).extend({
-    index: 'lib/index' //主入口模块
-  }).use(['index', 'user'], function(){
-    var $ = layui.$
-    ,setter = layui.setter
-    ,admin = layui.admin
-    ,form = layui.form
-    ,router = layui.router()
-    ,search = router.search;
-    form.render();
-    //提交
-    form.on('submit(LAY-user-login-submit)', function(obj){
-      //请求登录接口
-      $.ajax({
-        url: 'http://localhost:9999/login',
-        // dataType: 'json',
-        type:"POST",
-        data: {
-          'account': obj.field.account,
-          'password': obj.field.password
-          // 'u_v_i_c': verificationCode
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-          if(textStatus=="error"){
-            let res = XMLHttpRequest.responseText;
-            layer.msg(res, {
-              offset: '15px'
-              ,icon: 5
-            });
-          }
-        },
-        success: function (data) {
-          if (data.result == 'success') {//成功登录
-            window.location.href = tool.basePath + 'main.html';
-            history.go(0);
-          }else{
-            layer.msg('登录失败'+data.message, {
+    layui.config({
+      base: '../../layuiadmin/' //静态资源所在路径
+    }).extend({
+      index: 'lib/index' //主入口模块
+    }).use(['index', 'user'], function(){
+      var $ = layui.$
+      ,setter = layui.setter
+      ,admin = layui.admin
+      ,form = layui.form
+      ,router = layui.router()
+      ,search = router.search;
+      form.render();
+      //提交
+      form.on('submit(LAY-user-login-submit)', function(obj){
+        //请求登录接口
+        $.ajax({
+          url: 'http://localhost:9999/login',
+          // dataType: 'json',
+          type:"POST",
+          data: {
+            'account': obj.field.account,
+            'password': obj.field.password
+            // 'u_v_i_c': verificationCode
+          },
+          error: function (XMLHttpRequest, textStatus, errorThrown) {
+            if(textStatus=="error"){
+              let res = XMLHttpRequest.responseText;
+              layer.msg(res, {
                 offset: '15px'
                 ,icon: 5
               });
+            }
+          },
+          success: function (data) {
+            if (data.result == 'success') {//成功登录
+              // window.location.href = tool.basePath + 'main.html';
+              history.go(0);
+            }else{
+              layer.msg('登录失败'+data.message, {
+                  offset: '15px'
+                  ,icon: 5
+                });
+            }
           }
-        }
+        });
+
       });
-      
-    });
-    
-    
-    //实际使用时记得删除该代码
-    // layer.msg('为了方便演示，用户名密码可随意输入', {
-    //   offset: '15px'
-    //   ,icon: 1
-    // });
-    
+
   });
   </script>
 </body>

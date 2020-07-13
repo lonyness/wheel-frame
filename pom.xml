@@ -46,7 +46,7 @@
         <!--jedis.version-->
         <jedis.version>2.9.0</jedis.version>
         <!--beetl.version-->
-        <beetl.version>2.8.5</beetl.version>
+        <beetl.version>2.9.6</beetl.version>
     </properties>
 
     <modules>

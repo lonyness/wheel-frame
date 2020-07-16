@@ -2,6 +2,9 @@
 server:
   port: 9999
 spring:
+  #配置服务名称
+  application:
+    name: spring-cloud-eureka-server-wheel-frame
   #mysql
   datasource:
     type: com.alibaba.druid.pool.DruidDataSourceC3P0Adapter
@@ -53,3 +56,11 @@ mybatis-plus:
       logic-delete-value: 1 # 逻辑已删除值(默认为 1)
       logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
   mapper-locations: classpath*:/mapper/*.xml
+
+#配置eureka服务注册中心
+eureka:
+  client:
+    service-url:
+      defautlZone: http://eureka:8761/eureka
+    healthcheck:
+      enabled: true

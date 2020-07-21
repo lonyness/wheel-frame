@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      label: master
+      name: spring-cloud-eureka-server-wheel-frame-dev
+      profile: dev
+      uri: http://localhost:8083/
